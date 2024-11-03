@@ -1,0 +1,3 @@
+DirectoryIndex /FrontEnd/index.php
+Options -Indexes
+RedirectMatch 403 /\..*$

@@ -17,7 +17,7 @@ try {
 			$lineDec = json_decode($line, true);
 			if(isset($lineDec['Body'])) {
 				$body->insertBody($lineDec['Body']);
-			} elseif(isset($lineDec['Power'])) {
+			} elseif(isset($lineDec['Power']) && $lineDec['Power'] != 'None') {
 				$power->insertPower($lineDec['Power']['Name'], $lineDec['Power']['Desc'], $lineDec['Power']['Limit'], $lineDec['Power']['Special']);
 			} elseif(isset($lineDec['Weak'])) {
 				if($lineDec['Weak'] != 'None') {

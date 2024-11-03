@@ -22,7 +22,7 @@ custom_settings = {
                         'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
 			'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 			},
-		"PROXY_LIST":'/home/angry_antelope/BackEndV4/proxyList1.txt',
+		"PROXY_LIST":'/vagrant/GenerateStand/BackEndV4/proxyList1.txt',
 		"PROXY_MODE":0,
 		"RANDOM_UA_PER_PROXY":True,
 		"FAKEUSERAGENT_FALLBACK":"Mozilla",

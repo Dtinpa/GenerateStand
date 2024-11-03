@@ -9,10 +9,10 @@
 
 # There's a syntax warning for the global variable, since its in multiple places of the file.  It isn't important
 cd ../
-rm /home/angry_antelope/scripts/powerInfo.txt
+rm $1/powerInfo.txt
 for i in {1..10}
 do
-	spiderData=$(/home/angry_antelope/BackEndV4/bin/python3.8 -W ignore BackEndV4/WebScraper/WebScraper/spiders/spiderManager.py)
+	spiderData=$(python3 -W ignore BackEndV4/WebScraper/WebScraper/spiders/spiderManager.py)
 
 	echo "$spiderData" >> scripts/powerInfo.txt
 

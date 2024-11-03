@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Dana Thompson
+# dtdthomp54@gmail.com
+# /home/angry_antelope/BackEndV4
+
+# This file is ran as a cronjob every day at 11PM to get an updated list of proxies to use, that way they don't go stale
+
+# downloads list of proxies from github
+curl -s "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt" | sed '1,2d; $d; s/\s.*//; /^$/d' > $1/proxy-list.txt
+
+# gets every line but the first, then appends https:// to the beginning of it for scrapy
+tail -n +2 $1/proxy-list.txt | awk '{print "https://" $0;}' > $1/proxyList1.txt
+
+rm $1/proxy-list.txt
