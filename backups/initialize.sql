@@ -1,8 +1,8 @@
-CREATE DATABASE quirkcreation;
-USE quirkcreation;
+CREATE DATABASE `quirkcreation`;
+USE `quirkcreation`;
 
-CREATE USER 'dtinva'@'localhost' IDENTIFIED BY 'p@triot1';
-GRANT ALL PRIVILEGES ON quirkcreation.* TO 'dtinva'@'localhost' with grant option;
+CREATE USER ''@'localhost' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON ``.* TO ''@'localhost' with grant option;
 
-CREATE USER 'dtinva'@'ubuntu2204.localdomain' IDENTIFIED BY 'p@triot1';
-GRANT ALL PRIVILEGES ON quirkcreation.* TO 'dtinva'@'ubuntu2204.localdomain' with grant option;
+CREATE USER ''@'ubuntu2204.localdomain' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON ``.* TO ''@'ubuntu2204.localdomain' with grant option;
