@@ -38,7 +38,7 @@ if(isset($_GET['token']) && strcmp(bin2hex($_GET['token']), $_SESSION['token']))
 	//If they're older than 30 seconds, then get rid of them, they're no longer needed
 	$recentRequests = 0;
 	foreach($requests as $index => $request) {
-		if($request['time'] >= time() - $min_time) {
+		if(!is_array($request) || $request['time'] >= time() - $min_time) {
 			$recentRequests++;
 		} else {
 			unset($_SESSION['requests'][$index]);

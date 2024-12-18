@@ -28,7 +28,7 @@ class Spider_WeakData(Spider):
 	# The symptoms are listed based on whatever letter of the alphabet is in the url
 	def start_requests(self):
 		rLetterLower = random.choice(string.ascii_lowercase);
-		url = "https://www.medicinenet.com/symptoms_and_signs/alpha_" + rLetterLower + ".htm"
+		url = "https://www.medicinenet.com/diseases_and_conditions/alpha_" + rLetterLower + ".htm"
 		yield scrapy.Request(url=url, callback=self.parse);
 		
 	def parse(self, response):
