@@ -1,6 +1,5 @@
 <?php
-//This file is not intended to be uploaded to github, or be opened by anyone but the website
-//admin.  Only serves to facilitate DB connections.
+//Contains configs for the mysql DB.  environment vars must be set manually in the apache2.conf file
 
 
 $config['dbhost'] = getenv("HOST");
