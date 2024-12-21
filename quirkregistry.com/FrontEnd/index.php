@@ -5,7 +5,7 @@
 		$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
 	} 
 	
-	$token = $_SESSION['token'];	
+	$token = $_SESSION['token'];
 ?>
 
 <!--
@@ -22,7 +22,7 @@ My Hero Academia.
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-	<meta name="keywords" content="Quirk,quirk,generation,Generation,Generator,generator,BNHA, My Hero Academia,Boku No Hero Academia,creator,Creator">
+	<meta name="keywords" content="Stand, stand, generation, Generation, Generator, generator, JoJo's Bizzarre Adventure, JoJo, Jolyne, creator, Creator">
 
     <title>JoJo's Bizarre Adventure: Stand Generator</title>
 

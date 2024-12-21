@@ -3,10 +3,10 @@
 //admin.  Only serves to facilitate DB connections.
 
 
-$config['dbhost'] = "mysql:dbname=;host=localhost;";
-$config['dbuser'] = "";
-$config['dbpass'] = "";
-$config['db'] = "";
+$config['dbhost'] = getenv("HOST");
+$config['dbuser'] = getenv("USER");
+$config['dbpass'] = getenv("PASS");
+$config['db'] = getenv("DB");
 $mysql = null;
 
 try {
