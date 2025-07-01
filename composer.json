@@ -1,0 +1,10 @@
+{
+    "require": {
+        "nikic/fast-route": ">=1.0",
+        "monolog/monolog": ">=2.0"
+    },
+
+    "autoload": {
+        "classmap": ["QuirkPHP/", "BackEndV4/API/lib"]
+    }
+}
