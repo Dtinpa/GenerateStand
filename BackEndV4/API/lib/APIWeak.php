@@ -2,22 +2,22 @@
 
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
-class APIAction extends APIRequestHandler  {
+class APIWeak extends APIRequestHandler  {
 
     public function runEndpoint(array $vars) {
         $page = $this->getPage();
         $id = isset($vars['id']) ? $vars['id'] : null;
 
-        return $this->getAction($id, $page);
+        return $this->getWeak($id, $page);
     }
 
-    private function getAction(?string $id, int $page): array {
-        $sql = "SELECT `id_body_action` AS id, `action` FROM `Action`";
+    private function getWeak(?string $id, int $page): array {
+        $sql = "SELECT `id`, `desc`, `url` FROM `Weak`";
 
         // if an id was supplied, then select for only that id
         $isId = !is_null($id);
         if($isId) {
-            $sql .= " WHERE `id_body_action` = :id";
+            $sql .= " WHERE `id` = :id";
         }
 
         $calcPage = ($page - 1) * $this->numResultsOnPage;
@@ -32,7 +32,7 @@ class APIAction extends APIRequestHandler  {
 		$result = $query->fetchAll(PDO::FETCH_ASSOC);
 				
 		if(!empty($result)) {
-			$totalRows = $this->getRowCount("Action");
+			$totalRows = $this->getRowCount("Weak");
             $dataSet = $this->buildDataSet($result, $page, $totalRows);
 			return $dataSet;
 		} else {

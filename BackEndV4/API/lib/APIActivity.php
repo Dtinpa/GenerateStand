@@ -2,22 +2,22 @@
 
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
-class APIAction extends APIRequestHandler  {
+class APIActivity extends APIRequestHandler  {
 
     public function runEndpoint(array $vars) {
         $page = $this->getPage();
         $id = isset($vars['id']) ? $vars['id'] : null;
 
-        return $this->getAction($id, $page);
+        return $this->getActivity($id, $page);
     }
 
-    private function getAction(?string $id, int $page): array {
-        $sql = "SELECT `id_body_action` AS id, `action` FROM `Action`";
+    private function getActivity(?string $id, int $page): array {
+        $sql = "SELECT `id_activity` AS id, `activity` FROM `Activity`";
 
         // if an id was supplied, then select for only that id
         $isId = !is_null($id);
         if($isId) {
-            $sql .= " WHERE `id_body_action` = :id";
+            $sql .= " WHERE `id_activity` = :id";
         }
 
         $calcPage = ($page - 1) * $this->numResultsOnPage;
@@ -31,8 +31,9 @@ class APIAction extends APIRequestHandler  {
 		$query->execute();
 		$result = $query->fetchAll(PDO::FETCH_ASSOC);
 				
+        // if we got results, then get the total number of rows so we can calculate the total number of pages
 		if(!empty($result)) {
-			$totalRows = $this->getRowCount("Action");
+            $totalRows = $this->getRowCount("Activity");
             $dataSet = $this->buildDataSet($result, $page, $totalRows);
 			return $dataSet;
 		} else {
