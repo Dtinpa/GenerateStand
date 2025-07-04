@@ -4,9 +4,8 @@
  * Copyright 2013-2018 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-freelancer/blob/master/LICENSE)
  */
-
 body {
-  font-family: 'Montserrat' !important;
+  font-family: "Montserrat" !important;
 }
 
 h1,
@@ -16,106 +15,148 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   margin-top: 3rem;
 }
-.quirkDiv {
-	line-height: 2rem;
-	overflow: hidden;
-	padding-bottom: 4%;
-	padding-top: 1%;
-}
-.containerCustom {
-	width: 100%;
-}
-.quirkHeader{
-	line-height: 2.5rem;
-	font-family: Montserrat;
-	font-size: 24;
-	font-weight: bold;
-	color: #91cb7e
-}
-.artist {
-	text-align: center;
-	margin-top: 1rem !important;
-	font-family: Montserrat;
-	color: white;
-	font-size: 24;
-	font-weight: bold;
-	padding: 5px !important;
-	margin-bottom: 0 !important;
-}
-.secondaryColor {
-	background-color: #91cb7e;
-}
-.tertiaryColor {
-	background-color: #7eb8cb;
 
+.endpointListContainer {
+  list-style-type: none;
+  padding: 0;
+  border: 1px solid #ddd;
 }
+
+.endpointListBullet {
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.endpointListBottom {
+  border-bottom: none;
+}
+
+.quirkDiv {
+  line-height: 2rem;
+  overflow: hidden;
+  padding-bottom: 4%;
+  padding-top: 1%;
+}
+
+.containerCustom {
+  width: 100%;
+}
+
+.quirkHeader {
+  line-height: 2.5rem;
+  font-family: Montserrat;
+  font-size: 24;
+  font-weight: bold;
+  color: #91cb7e;
+}
+
+.textAlignRight {
+  text-align: right;
+}
+
+.artist {
+  text-align: center;
+  margin-top: 1rem !important;
+  font-family: Montserrat;
+  color: white;
+  font-size: 24;
+  font-weight: bold;
+  padding: 5px !important;
+  margin-bottom: 0 !important;
+}
+
+.secondaryColor {
+  background-color: #91cb7e;
+}
+
+.tertiaryColor {
+  background-color: #7eb8cb;
+}
+
 .primaryColor {
-	background-color: #452274;
+  background-color: #452274;
 }
+
 .copyButton {
-	color: #452274;
-	font-size: 14 !important;
-	border-color: #91cb7e;
+  color: #452274;
+  font-size: 14 !important;
+  border-color: #91cb7e;
 }
+
 .copyButton:hover {
-	color: #91cb7e;
-	background-color: #452274;
+  color: #91cb7e;
+  background-color: #452274;
 }
+
 .copyButton:active {
-	transform: translateY(4px);
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
 }
+
 .artistButton:hover {
-	background-color: white !important;
-	margin-top: 1rem !important;
-	font-family: Montserrat;
-	color: #452274;
+  background-color: white !important;
+  margin-top: 1rem !important;
+  font-family: Montserrat;
+  color: #452274;
 }
+
 .stats {
-	display: none;
-	margin-top: 3rem;
+  display: none;
+  margin-top: 3rem;
 }
+
 .headerName {
-	background-color: #91cb7e;
-	overflow: auto;
+  background-color: #91cb7e;
+  overflow: auto;
 }
+
 .artistHeader {
-	color: #452274;
-	font-size: 32;
-	font-weight: bold;
+  color: #452274;
+  font-size: 32;
+  font-weight: bold;
 }
+
 .image {
-	margin-top: -2%;
+  margin-top: -2%;
 }
+
 .headerStats {
-	background-color: #452274;
-	padding-right: 5%;
-	padding-left: 5%;
-	padding-top: 1% !important;
+  background-color: #452274;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-top: 1% !important;
 }
+
 .headerStatsFilled {
-	background-color: #452274;
-	padding-top: 0% !important;
+  background-color: #452274;
+  padding-top: 0% !important;
 }
+
 .headerHeight {
-	height: 100%;
+  height: 100%;
 }
+
 .displayInline {
-	display: inline-block;
-	vertical-align: top;
+  display: inline-block;
+  vertical-align: top;
 }
+
 .displayStats {
-	background-color: #452274;
+  background-color: #452274;
 }
+
 .displayAbility {
-	width: 35%;
+  width: 35%;
 }
+
 .quirkCapsule {
-	border-radius: 0.5rem;
-	color:#fff;
+  border-radius: 0.5rem;
+  color: #fff;
 }
+
 hr.star-light,
 hr.star-dark {
   max-width: 15rem;
@@ -132,10 +173,10 @@ hr.star-dark {
 hr.star-light:after,
 hr.star-dark:after {
   position: relative;
-  top: -.8em;
+  top: -0.8em;
   display: inline-block;
   padding: 0 0.25em;
-  content: '\f005';
+  content: "\f005";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 2em;
@@ -174,7 +215,6 @@ section h2 {
     line-height: 2.5rem;
   }
 }
-
 .btn-xl {
   padding: 1rem 1.75rem;
   font-size: 1.25rem;
@@ -205,7 +245,7 @@ section h2 {
   padding-top: 1rem;
   padding-bottom: 1rem;
   font-weight: 700;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 #mainNav .navbar-brand {
@@ -269,7 +309,6 @@ section h2 {
     font-size: 1.5em;
   }
 }
-
 header.masthead {
   padding-top: calc(6rem + 72px);
   padding-bottom: 6rem;
@@ -282,7 +321,7 @@ header.masthead h1 {
 
 header.masthead h2 {
   font-size: 1.3rem;
-  font-family: 'Lato';
+  font-family: "Lato";
 }
 
 @media (min-width: 992px) {
@@ -298,7 +337,6 @@ header.masthead h2 {
     font-size: 1.75em;
   }
 }
-
 .portfolio {
   margin-bottom: -15px;
 }
@@ -333,7 +371,6 @@ header.masthead h2 {
     margin-bottom: 30px;
   }
 }
-
 .portfolio-modal .portfolio-modal-dialog {
   padding: 3rem 1rem;
   min-height: calc(100vh - 2rem);
@@ -368,7 +405,6 @@ header.masthead h2 {
     font-size: 3rem;
   }
 }
-
 .floating-label-form-group {
   position: relative;
   border-bottom: 1px solid #e9ecef;
@@ -482,20 +518,13 @@ a:focus, a:hover, a:active {
 }
 
 input[type=text], button {
-    border: 5px solid #452274; 
-    -webkit-box-shadow: 
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1); 
-    -moz-box-shadow: 
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1); 
-    box-shadow: 
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1); 
-    padding: 15px;
-    background: #7eb8cb;
-    margin: 0 0 10px 0;
-	outline-width: 0 !important;
+  border: 5px solid #452274;
+  -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 16px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 16px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  background: #7eb8cb;
+  margin: 0 0 10px 0;
+  outline-width: 0 !important;
 }
 
 select:-webkit-autofill,
@@ -506,6 +535,6 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-	background-color: #7eb8cb !important;
-	color: white !important;
+  background-color: #7eb8cb !important;
+  color: white !important;
 }

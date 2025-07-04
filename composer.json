@@ -1,7 +1,8 @@
 {
     "require": {
         "nikic/fast-route": ">=1.0",
-        "monolog/monolog": ">=2.0"
+        "monolog/monolog": ">=2.0",
+        "bshaffer/oauth2-server-php": "^1.10"
     },
 
     "autoload": {

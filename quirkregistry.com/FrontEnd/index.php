@@ -53,8 +53,11 @@ My Hero Academia.
 	<div id="copy" hidden data-power="" data-stats="" data-name=""></div>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="col-xs-12 text-center">
+      <div class="col-xs-6 text-center">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">What's Your Stand?</a>
+      </div>
+	  <div class="col-xs-6 text-center">
+        <a class="navbar-brand js-scroll-trigger" href="/FrontEnd/inc/documentation.php">API Documentation</a>
       </div>
     </nav>
 

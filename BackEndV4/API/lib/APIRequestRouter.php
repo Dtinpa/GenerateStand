@@ -7,12 +7,14 @@ class APIRequestRouter  {
     private PDO $mysql;
     private array $config;
     private FastRoute\Dispatcher\GroupCountBased $dispatcher;
+    private OAuth2\Server $server;
 
     function __construct(array $config, PDO $mysql) {
 		$this->config = $config;
 		$this->mysql = $mysql;
 
         $this->setupDispatcher();
+        $this->setupOAuth();
     }
 
     private function setupDispatcher( ): void {
@@ -31,7 +33,21 @@ class APIRequestRouter  {
             $r->addRoute('GET', '/api/index.php/weak', 'APIWeak');
             $r->addRoute('GET', '/api/index.php/limit', 'APILimit');
             $r->addRoute('GET', '/api/index.php/special', 'APISpecial');
+            $r->addRoute('POST', '/api/index.php/token/{id:[a-zA-Z0-9]*}/{secret:[a-zA-Z0-9]*}', 'APIToken');
         });
+    }
+
+    private function setUpOauth(): void {
+        $storage = new OAuth2\Storage\Pdo(array('dsn' => $this->config['dbhost'], 'username' => $this->config['dbuser'], 'password' => $this->config['dbpass']));
+
+        // Pass a storage object or array of storage objects to the OAuth2 server class
+        $this->server = new OAuth2\Server($storage);
+
+        // Add the "Client Credentials" grant type (it is the simplest of the grant types)
+        $this->server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+
+        // Add the "Authorization Code" grant type (this is where the oauth magic happens)
+        $this->server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage));
     }
 
     public function run(): array {
@@ -43,11 +59,12 @@ class APIRequestRouter  {
         if (false !== $pos = strpos($uri, '?')) {
             $uri = substr($uri, 0, $pos);
         }
-        $uri = rawurldecode($uri);
 
+        $uri = rawurldecode($uri);
         $responseCode = 0;
 
         $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);    
+
         $handler = '';
         $vars = array();
         $desc = '';
@@ -61,7 +78,7 @@ class APIRequestRouter  {
                 $allowedMethods = $routeInfo[1];
                 // ... 405 Method Not Allowed
                 $responseCode = 405;
-                $desc = "Invalid method supplied.  Valid methods include: " . $allowedMethods;
+                $desc = "Invalid method supplied.  Valid methods include: " . json_encode($allowedMethods);
                 break;
             case FastRoute\Dispatcher::FOUND:
                 $handler = $routeInfo[1];
@@ -69,10 +86,21 @@ class APIRequestRouter  {
                 $responseCode = 200;
                 break;
         }
-
-        // If we manage to hit an endpoint, only then do we attempt to instantiate the class
+        
+        // if we manage to hit an endpoint, only then do we attempt to instantiate the class
         if($handler != '') {
             $class = new $handler($this->config, $this->mysql, $vars);
+
+            // verify that the token supplied is valid
+            if($handler != 'APIToken') {
+                if(!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
+                    $this->server->getResponse()->send();
+                    die;
+                }
+            } else {
+                $class->setServer($this->server);
+            }
+
             return $class->runEndpoint($vars);
         }
 
