@@ -36,14 +36,15 @@
   },
   "devDependencies": {
     "browser-sync": "^3.0.3",
-    "gulp": "^5.0.0",
+    "gulp": "^5.0.1",
     "gulp-autoprefixer": "^9.0.0",
     "gulp-clean-css": "3.10.0",
     "gulp-filter": "5.1.0",
     "gulp-header": "^1.8.9",
     "gulp-rename": "1.4.0",
     "gulp-sass": "^5.1.0",
-    "gulp-uglify": "3.0.1"
+    "gulp-uglify": "3.0.1",
+    "sass": "^1.89.2"
   },
   "main": "ParseQuirk.js",
   "scripts": {

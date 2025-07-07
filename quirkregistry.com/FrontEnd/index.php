@@ -7,11 +7,10 @@
 	
 	$token = $_SESSION['token'];
 ?>
-
 <!--
 
 This website is to be used to create a quirk similar to that of the show from
-My Hero Academia.
+JoJo's Bizarre Adventure.
 
 -->
 

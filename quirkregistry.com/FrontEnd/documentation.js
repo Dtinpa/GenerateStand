@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    $(".endpointListBullet").click(function (e) {
+    $(".endpointButton").click(function (e) {
         e.preventDefault();
         $("#endpointDesc").empty();
-        var endpointName = $(this).attr('class').split(/\s+/)[1];
+        var endpointName = $(this).attr('class').split(/\s+/)[2];
         
         $.ajax({
             url: 'api.php',
@@ -21,13 +21,15 @@ $(document).ready(function() {
     $(".getAPIKey").click(function (e) {
         e.preventDefault();
 
+        var userValidation = ((tok = $('#validate').attr('data-t')) ? tok : "");
         var email = $("#emailBox").val();
         $.ajax({
             url: 'api.php',
             type: 'GET',
             data: {
                 action: "generateKey",
-                email: email
+                email: email,
+                token: userValidation
             },
             dataType: "html",
             success: function(result) {

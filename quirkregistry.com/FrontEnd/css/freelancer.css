@@ -30,6 +30,10 @@ h6 {
   border-bottom: 1px solid #ddd;
 }
 
+.endpointButton {
+  cursor: pointer;
+}
+
 .endpointListBottom {
   border-bottom: none;
 }

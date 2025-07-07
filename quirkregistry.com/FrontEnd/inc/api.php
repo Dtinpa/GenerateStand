@@ -2,6 +2,8 @@
     require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
     require_once dirname(__FILE__) . '/../../../QuirkPHP/DBConn.php';
 
+    $csrf = new CSRF(4);
+
     if(!isset($_GET["action"])) {
         die;
     }
@@ -44,18 +46,23 @@
                     break;
             }
         case 'generateKey':
-            if(!isset($_GET["email"])) {
+            if(!isset($_GET["email"]) || !$csrf->checkCSRFValid()) {
                 die;
             }
 
             $email = $_GET['email'];
             if(Validator::validate(array('email' => $email))) {
                 $user = new User($config, $mysql);
-                $user->generateKey();
-                if($user->insertAPIKey($email)) {
-                    $client = $user->getAPIKey();
-                    $secret = $user->getAPISecret();
-                    $html = include("client_secret.tpl.php");
+
+                if($user->checkUserExists($email)) {
+                    $html = include("error.tpl.php");
+                } else {
+                    $user->generateKey();
+                    if($user->insertAPIKey($email)) {
+                        $client = $user->getAPIKey();
+                        $secret = $user->getAPISecret();
+                        $html = include("client_secret.tpl.php");
+                    }
                 }
             }
             break;

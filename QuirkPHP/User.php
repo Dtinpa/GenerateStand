@@ -21,7 +21,7 @@ class User {
         return $this->apiSecret;
     }
 
-    public function generateKey() {
+    public function generateKey(): void {
         $this->apiKey = bin2hex(random_bytes(32));
         $this->apiSecret = bin2hex(random_bytes(32));
     }
@@ -30,24 +30,41 @@ class User {
         $this->mysql->beginTransaction();
         
         $wasInserted = false;
-        $sql = "INSERT IGNORE INTO user (`email`) VALUES (:email)";
-		$query = $this->mysql->prepare($sql);
-		$query->bindValue(":email", $email);
-		$query->execute();
+        $sql = "INSERT INTO oauth_clients (client_id, client_secret, redirect_uri) VALUES (:testclient, :testpass, 'http://www.generatestand.com');";
+        $query = $this->mysql->prepare($sql);
+        $query->bindValue(":testclient", $this->apiKey);
+        $query->bindValue(":testpass", $this->apiSecret);
+        $query->execute();
 		
-		if(is_string($this->mysql->lastInsertId())) {
-            $sql = "INSERT INTO oauth_clients (client_id, client_secret, redirect_uri) VALUES (:testclient, :testpass, 'http://www.generatestand.com');";
+        $oauthClientId = $this->mysql->lastInsertId();
+		if(is_string($oauthClientId)) {
+            $sql = "INSERT INTO user (`email`, oauth_client_id) VALUES (:email, :oauth_client_id)";
             $query = $this->mysql->prepare($sql);
-            $query->bindValue(":testclient", $this->apiKey);
-            $query->bindValue(":testpass", $this->apiSecret);
+            $query->bindValue(":email", $email);
+            $query->bindValue(":oauth_client_id", $this->apiKey);
             $query->execute();
 
             $wasInserted = is_string($this->mysql->lastInsertId());
+
+            $this->mysql->commit();
         } else {
             $this->mysql->rollback();
         }
 
         return $wasInserted;
+    }
+
+    public function checkUserExists(string $email) : bool {
+        $sql = "SELECT id FROM user WHERE email=:email";
+		$query = $this->mysql->prepare($sql);
+		$query->bindValue(":email", $email);
+		$query->execute();
+
+        if(empty($query->fetch(PDO::FETCH_ASSOC))) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

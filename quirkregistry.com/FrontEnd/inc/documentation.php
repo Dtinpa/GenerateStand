@@ -1,3 +1,12 @@
+<?php
+	session_start();
+
+	if(!isset($_SESSION['token'])) {
+		$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
+	} 
+	
+	$token = $_SESSION['token'];
+?>
 <html lang="en">
   <head>
 
@@ -45,6 +54,8 @@
 	
   </head>
   <body id="page-top">
+    <div id='validate' hidden data-t="<?php echo($token); ?>"></div>
+	  <div id="copy" hidden data-power="" data-stats="" data-name=""></div>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
         <div class="col-xs-6 text-center">
@@ -69,19 +80,20 @@
         <div id="endpoints" class="col-xs-6">
             <h1 class="quirkHeader">Endpoints</h1>
             <ul class="col-xs-6 quirkHeader endpointListContainer">
-                <li class="endpointListBullet token">Token</li>
-                <li class="endpointListBullet action">Action</li>
-                <li class="endpointListBullet activity">Activity</li>
-                <li class="endpointListBullet body">Body</li>
-                <li class="endpointListBullet limit">Limit</li>
-                <li class="endpointListBullet power">Power</li>
-                <li class="endpointListBullet special">Special</li>
-                <li class="endpointListBullet weak">Weak</li>
+                <li class="endpointListBullet endpointButton token">Token</li>
+                <li class="endpointListBullet endpointButton action">Action</li>
+                <li class="endpointListBullet endpointButton activity">Activity</li>
+                <li class="endpointListBullet endpointButton body">Body</li>
+                <li class="endpointListBullet endpointButton limit">Limit</li>
+                <li class="endpointListBullet endpointButton power">Power</li>
+                <li class="endpointListBullet endpointButton special">Special</li>
+                <li class="endpointListBullet endpointButton weak">Weak</li>
             </ul>
         </div>
         <div id="documentation" class="col-xs-6">
           <h1 class="quirkHeader textAlignRight">Documentation</h1>
           <div id="endpointDesc">
+            <?php echo(include("overview.tpl.php")); ?>
           </div>
         </div>
 		</div>

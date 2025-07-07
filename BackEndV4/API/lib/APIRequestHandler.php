@@ -38,6 +38,44 @@ class APIRequestHandler  {
 
         return $data;
     }
+
+    // in order to do consistant request tracking, we need to link back to the users oauth client id instead of a temp access token
+    public function getClientIdByToken(string $token): array {
+        $sql = "SELECT oauth_clients.client_id FROM oauth_clients
+                INNER JOIN oauth_access_tokens ON oauth_access_tokens.client_id = oauth_clients.client_id
+                WHERE oauth_access_tokens.access_token = :token";
+        $query = $this->mysql->prepare($sql);
+        $query->bindValue(":token", $token);
+        $query->execute();
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if(!empty($result)) {
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function getNumOfAPIRequests(string $clientId): array {
+        $sql = "SELECT num_requests_made FROM user WHERE user.oauth_client_id = :clientId";
+        $query = $this->mysql->prepare($sql);
+        $query->bindValue(":clientId", $clientId);
+        $query->execute();
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if(!empty($result)) {
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function incrementAPIRequests(string $clientId): bool {
+        $sql = "UPDATE user SET num_requests_made = num_requests_made + 1 WHERE oauth_client_id = :clientId";
+        $query = $this->mysql->prepare($sql);
+        $query->bindValue(":clientId", $clientId);
+        return $query->execute();
+    }
 }
 
 ?>

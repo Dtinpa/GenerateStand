@@ -62,6 +62,7 @@ class APIRequestRouter  {
 
         $uri = rawurldecode($uri);
         $responseCode = 0;
+        $headers = apache_request_headers();
 
         $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);    
 
@@ -90,18 +91,44 @@ class APIRequestRouter  {
         // if we manage to hit an endpoint, only then do we attempt to instantiate the class
         if($handler != '') {
             $class = new $handler($this->config, $this->mysql, $vars);
-
+            $clientId = '';
             // verify that the token supplied is valid
             if($handler != 'APIToken') {
                 if(!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
                     $this->server->getResponse()->send();
                     die;
                 }
+
+                // if no token was passed in through the headers, exit early
+                if(!isset($headers['Authorization']) || $headers['Authorization'] == '') {
+                    die;
+                }
+
+                // if we cant get the access token, we can't continue with the request
+                try {
+                    $token = explode(" ", $headers['Authorization'])[1];
+                } catch(Exception $e) {
+                    $responseCode = 400;
+                    $desc = "Access Token provided was not parsable.";
+                    return array("response_code" => $responseCode, "desc" => $desc);
+                }
+
+                $clientId = $class->getClientIdByToken($token);
             } else {
+                $clientId = $vars["id"];
                 $class->setServer($this->server);
             }
 
-            return $class->runEndpoint($vars);
+            // want to limit num of requests to 50 a day.  Number in the users table is reset each day
+            $numRequests = $class->getNumOfAPIRequests($clientId);
+            if($numRequests["num_requests_made"] <= 50) {
+                $result = $class->runEndpoint($vars);
+                $class->incrementAPIRequests($clientId);
+                return $result;
+            } else {
+                $responseCode = 400;
+                $desc = "Hit API Rate Limit.";
+            }
         }
 
         return array("response_code" => $responseCode, "desc" => $desc);
