@@ -1,3 +1,4 @@
 DirectoryIndex /FrontEnd/index.php
 Options -Indexes
 RedirectMatch 403 /\..*$
+CGIPassAuth on

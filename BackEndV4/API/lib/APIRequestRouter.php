@@ -65,7 +65,7 @@ class APIRequestRouter  {
         $headers = apache_request_headers();
 
         $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);    
-
+	
         $handler = '';
         $vars = array();
         $desc = '';
@@ -87,23 +87,24 @@ class APIRequestRouter  {
                 $responseCode = 200;
                 break;
         }
-        
+
         // if we manage to hit an endpoint, only then do we attempt to instantiate the class
         if($handler != '') {
             $class = new $handler($this->config, $this->mysql, $vars);
-            $clientId = '';
+	    $clientId = '';
+	   
             // verify that the token supplied is valid
             if($handler != 'APIToken') {
                 if(!$this->server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
                     $this->server->getResponse()->send();
                     die;
                 }
-
+			
                 // if no token was passed in through the headers, exit early
                 if(!isset($headers['Authorization']) || $headers['Authorization'] == '') {
                     die;
                 }
-
+		
                 // if we cant get the access token, we can't continue with the request
                 try {
                     $token = explode(" ", $headers['Authorization'])[1];
@@ -112,18 +113,18 @@ class APIRequestRouter  {
                     $desc = "Access Token provided was not parsable.";
                     return array("response_code" => $responseCode, "desc" => $desc);
                 }
-
-                $clientId = $class->getClientIdByToken($token);
+	
+		$clientId = $class->getClientIdByToken($token);
             } else {
                 $clientId = $vars["id"];
                 $class->setServer($this->server);
             }
 
             // want to limit num of requests to 50 a day.  Number in the users table is reset each day
-            $numRequests = $class->getNumOfAPIRequests($clientId);
+	    $numRequests = $class->getNumOfAPIRequests($clientId['client_id']);
             if($numRequests["num_requests_made"] <= 50) {
                 $result = $class->runEndpoint($vars);
-                $class->incrementAPIRequests($clientId);
+                $class->incrementAPIRequests($clientId['client_id']);
                 return $result;
             } else {
                 $responseCode = 400;
