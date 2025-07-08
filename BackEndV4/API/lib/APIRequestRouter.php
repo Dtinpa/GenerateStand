@@ -91,7 +91,7 @@ class APIRequestRouter  {
         // if we manage to hit an endpoint, only then do we attempt to instantiate the class
         if($handler != '') {
             $class = new $handler($this->config, $this->mysql, $vars);
-	    $clientId = '';
+	        $clientId = array();
 	   
             // verify that the token supplied is valid
             if($handler != 'APIToken') {
@@ -114,21 +114,21 @@ class APIRequestRouter  {
                     return array("response_code" => $responseCode, "desc" => $desc);
                 }
 	
-		$clientId = $class->getClientIdByToken($token);
+		        $clientId = $class->getClientIdByToken($token);
             } else {
-                $clientId = $vars["id"];
+                $clientId['client_id'] = $vars["id"];
                 $class->setServer($this->server);
             }
 
             // want to limit num of requests to 50 a day.  Number in the users table is reset each day
-	    $numRequests = $class->getNumOfAPIRequests($clientId['client_id']);
-            if($numRequests["num_requests_made"] <= 50) {
+	        $numRequests = $class->getNumOfAPIRequests($clientId['client_id']);
+            if($numRequests["num_requests_made"] <= 50 && $numRequests["approved"]) {
                 $result = $class->runEndpoint($vars);
                 $class->incrementAPIRequests($clientId['client_id']);
                 return $result;
             } else {
                 $responseCode = 400;
-                $desc = "Hit API Rate Limit.";
+                $desc = "Hit API Rate Limit or are not approved.";
             }
         }
 

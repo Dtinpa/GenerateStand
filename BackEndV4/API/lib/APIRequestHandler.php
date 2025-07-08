@@ -57,7 +57,7 @@ class APIRequestHandler  {
     }
 
     public function getNumOfAPIRequests(string $clientId): array {
-        $sql = "SELECT num_requests_made FROM user WHERE user.oauth_client_id = :clientId";
+        $sql = "SELECT num_requests_made, approved FROM user WHERE user.oauth_client_id = :clientId";
         $query = $this->mysql->prepare($sql);
         $query->bindValue(":clientId", $clientId);
         $query->execute();
