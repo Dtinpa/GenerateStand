@@ -1,3 +1,16 @@
+BackEndV4/WebScraper/WebScraper/spiders/__pycache__/
+BackEndV4/bin/
+BackEndV4/lib/
+BackEndV4/pyvenv.cfg
+BackEndV4/proxyList1.txt
+QuirkPHP/DBConn.php
+openssl*
+logs/
+opt/
+Maildir/
+temp/
+backups*
+.*
 vendor/
 composer.phar
 backups/initialize.sql

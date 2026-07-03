@@ -199,8 +199,6 @@ function handleTunesSearchResults(arg) {
 	}
 	else
 	{
-		console.log(Name);
-		console.log(index);
 		finalName = Name[index];
 	}
 
