@@ -136,6 +136,7 @@ function searchForSong() {
 	var params = 
 	{
 		term: document.getElementById('search-keyword').value,
+		media: 'music',
 		callback: 'handleTunesSearchResults'
 	};
 	
@@ -171,14 +172,16 @@ function handleTunesSearchResults(arg) {
 		var obj =
 		{
 			source: 0,
-			track_name: item.trackCensoredName,
+			track_name: item.trackName,
 		};
-		Name[i] = obj.track_name;	
-		
+		temp = obj.track_name;	
+
 		//gets rid of useless descriptions in parenthesis
-		if(Name[i].indexOf("(") != -1)
+		if(temp.indexOf("(") != -1)
 		{
-			Name[i] = Name[i].substr(0,Name[i].indexOf("("))
+			Name[i] = temp.substr(0,temp.indexOf("("))
+		} else {
+			Name[i] = temp;
 		}
 	}
 	
@@ -190,12 +193,14 @@ function handleTunesSearchResults(arg) {
 	
 	//If the search was unsuccessful, then tell the user that, don't just show undefined
 	var finalName = "";
-	if(typeof Name[index] == 'undefined')
+	if(Name.length <= 0 || Name.length <= index)
 	{
 		finalName = "Country Roads";
 	}
 	else
 	{
+		console.log(Name);
+		console.log(index);
 		finalName = Name[index];
 	}
 
