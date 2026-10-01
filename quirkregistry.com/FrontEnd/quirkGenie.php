@@ -12,6 +12,7 @@ require_once '../../QuirkPHP/Activity.php';
 require_once '../../QuirkPHP/Power.php';
 require_once '../../QuirkPHP/Weak.php';
 require_once '../../QuirkPHP/Body.php';
+require_once '../../QuirkPHP/Song.php';
 
 $csrf = new CSRF(7);
 if($csrf->checkCSRFValid()) {
@@ -20,6 +21,7 @@ if($csrf->checkCSRFValid()) {
 	$power = new Power($config, $mysql);
 	$weak = new Weak($config, $mysql);
 	$body = new Body($config, $mysql);
+	$song = new Song($config);
 
 	$weakArray = $weak->getRandomWeak();
 	$bodyArray = $body->getRandomRow("part");
@@ -31,7 +33,8 @@ if($csrf->checkCSRFValid()) {
 					"activity" => $activity->getRandomRow("activity"),
 					"Body" => array("Part" => $bodyArray['part']),
 					"Weak" => $weakArray,
-					"Power" => $powerArray
+					"Power" => $powerArray,
+					"Song" => $song->getSong($_GET['term'])
 					);
 
 	echo json_encode($result);

@@ -132,6 +132,7 @@ JoJo's Bizarre Adventure.
 				url: 'FrontEnd/quirkGenie.php',
 				type: 'GET',
 				data: {
+					term: document.getElementById('search-keyword').value,
 					token: userValidation
 				},
 				dataType: "json",
@@ -142,7 +143,6 @@ JoJo's Bizarre Adventure.
 						var result = parseQuirk(result);
 						if(result) {
 							$("#stand").hide();
-							searchForSong();
 							$("#statHeader").addClass("headerStatsNum").removeClass("headerHeight");
 							$("#stand").fadeIn(2500, function() {});
 						} else {

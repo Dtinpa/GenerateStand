@@ -40,7 +40,8 @@ function parseQuirk(obj) {
 			channel,
 			range,
 			obj["Power"]["Special"]);
-			
+		
+		handleTunesSearchResults(JSON.parse(obj["Song"]));
 		return true;
 	} catch(e) {
 		console.log(e);
@@ -136,15 +137,23 @@ function searchForSong() {
 	var params = 
 	{
 		term: document.getElementById('search-keyword').value,
-		media: 'music',
-		callback: 'handleTunesSearchResults'
+		media: 'music'
 	};
 	
 	var params = urlEncode(params);
 
 	var url = 'https://itunes.apple.com/search?' + params;
 	var html = '<script src="' + url + '"><\/script>';
-	jQuery('head').append(html);
+
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: "json",
+		success: function(result) {
+            handleTunesSearchResults(result);
+        }
+    });
 }
 
 //Formats the users request to suite a url
